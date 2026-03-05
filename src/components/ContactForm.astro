@@ -7,12 +7,20 @@ import Button from './Button.astro';
 <form
   name="contact"
   method="POST"
+  netlify
   data-netlify="true"
+  netlify-honeypot="bot-field"
   action="/confirmation"
   class="contact-form"
   novalidate
 >
   <input type="hidden" name="form-name" value="contact" />
+  <p hidden>
+    <label>
+      Don’t fill this out:
+      <input name="bot-field" />
+    </label>
+  </p>
   <TextBox />
   <FormField id="email" name="email" />
   <Button variant="enabled" type="submit" />
