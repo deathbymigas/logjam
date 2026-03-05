@@ -1,0 +1,96 @@
+---
+import TextBox from './TextBox.astro';
+import FormField from './FormField.astro';
+import Button from './Button.astro';
+---
+
+<form
+  name="contact"
+  method="POST"
+  data-netlify="true"
+  action="/confirmation"
+  class="contact-form"
+  novalidate
+>
+  <input type="hidden" name="form-name" value="contact" />
+  <TextBox />
+  <FormField id="email" name="email" />
+  <Button variant="enabled" type="submit" />
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  if (form) {
+    const emailField = form.querySelector<HTMLElement>('.field');
+    const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    form.addEventListener('submit', (e) => {
+      if (!emailInput) return;
+
+      const emailValue = emailInput.value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isValid = emailValue.length > 0 && emailPattern.test(emailValue);
+
+      if (!isValid) {
+        e.preventDefault();
+        if (emailField) {
+          emailField.classList.remove('field--inactive', 'field--active');
+          emailField.classList.add('field--error');
+          // Show the error label
+          const labelRow = emailField.querySelector('.field-label-row');
+          if (labelRow && !labelRow.querySelector('.field-error')) {
+            const errSpan = document.createElement('span');
+            errSpan.className = 'field-error';
+            errSpan.textContent = 'required';
+            labelRow.appendChild(errSpan);
+          }
+        }
+        emailInput.focus();
+        return;
+      }
+
+      // Valid — disable button to prevent double submit
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.remove('btn--enabled');
+        submitBtn.classList.add('btn--disabled');
+      }
+    });
+
+    // Clear error state when user types in email
+    if (emailInput && emailField) {
+      emailInput.addEventListener('input', () => {
+        if (emailField.classList.contains('field--error')) {
+          emailField.classList.remove('field--error');
+          emailField.classList.add('field--active');
+          const errSpan = emailField.querySelector('.field-error');
+          if (errSpan) errSpan.remove();
+        }
+      });
+
+      emailInput.addEventListener('focus', () => {
+        if (!emailField.classList.contains('field--error')) {
+          emailField.classList.remove('field--inactive');
+          emailField.classList.add('field--active');
+        }
+      });
+
+      emailInput.addEventListener('blur', () => {
+        if (!emailField.classList.contains('field--error')) {
+          emailField.classList.remove('field--active');
+          emailField.classList.add('field--inactive');
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 390px;
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+---
+
+<div class="logo-wrap">
+  <div class="logo-square">
+    <span class="logo-letter">L</span>
+    <div class="logo-grain"></div>
+  </div>
+  <div class="logo-wordmark">LOGJAM</div>
+</div>
+
+<style>
+  .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 390px;
+  }
+
+  .logo-square {
+    position: relative;
+    width: 390px;
+    height: 390px;
+    background: linear-gradient(-44deg, rgb(15, 15, 15) 1.9%, rgba(15, 15, 15, 0.9) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .logo-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url('/textures/grain-logo.png');
+    background-size: var(--texture-size);
+    background-position: top left;
+    background-repeat: repeat;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .logo-letter {
+    font-family: var(--font-display);
+    font-size: 260px;
+    line-height: 1;
+    background:
+      url('/textures/grain-letter-2.png') top left / var(--texture-size) repeat,
+      linear-gradient(137deg, rgba(255, 255, 255, 0.7) 0%, rgb(255, 255, 255) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    z-index: 1;
+    user-select: none;
+  }
+
+  .logo-wordmark {
+    font-family: var(--font-display);
+    font-size: 88px;
+    line-height: 1;
+    background:
+      linear-gradient(102deg, rgb(15, 15, 15) 0.1%, rgba(15, 15, 15, 0.9) 100%),
+      url('/textures/grain-logo.png') top left / var(--texture-size) repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transform: rotate(-1deg) skewX(-1deg);
+    transform-origin: left center;
+    margin-top: -4px;
+    user-select: none;
+  }
+</style>

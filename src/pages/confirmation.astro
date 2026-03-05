@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="Got it — Logjam">
+  <main class="page">
+    <div class="page-grain"></div>
+    <div class="column">
+      <h1 class="heading">GOT IT, THANKS!</h1>
+      <div class="divider"></div>
+      <p class="body-text">we'll be in touch soon with next steps</p>
+      <Button variant="small" href="/" />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .page {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .page-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url('/textures/grain-bg.png');
+    background-size: var(--texture-size);
+    background-position: top left;
+    background-repeat: repeat;
+    opacity: 0.53;
+    pointer-events: none;
+  }
+
+  .column {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 66px;
+    width: 466px;
+  }
+
+  .heading {
+    font-family: var(--font-display);
+    font-size: 72px;
+    line-height: 1;
+    color: var(--color-dark);
+    transform: rotate(-1deg);
+    margin: 0;
+    text-align: center;
+  }
+
+  .divider {
+    width: 367px;
+    height: 63px;
+    background-image: url('/textures/divider.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .body-text {
+    font-family: var(--font-ui);
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--color-text-primary);
+    text-align: center;
+    width: 256px;
+    margin: 0;
+    line-height: 1.4;
+  }
+</style>

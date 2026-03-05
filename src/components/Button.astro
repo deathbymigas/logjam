@@ -1,0 +1,101 @@
+---
+interface Props {
+  variant?: 'enabled' | 'disabled' | 'small';
+  href?: string;
+  type?: string;
+  label?: string;
+}
+
+const {
+  variant = 'enabled',
+  href,
+  type = 'button',
+  label,
+} = Astro.props;
+
+const defaultLabels: Record<string, string> = {
+  enabled: "let's jam",
+  disabled: "let's jam",
+  small: 'back',
+};
+
+const text = label ?? defaultLabels[variant];
+const isDisabled = variant === 'disabled';
+---
+
+{href ? (
+  <a href={href} class:list={['btn', `btn--${variant}`]}>
+    <span class="btn-grain"></span>
+    <span class="btn-text">{text}</span>
+  </a>
+) : (
+  <button
+    type={type as any}
+    disabled={isDisabled}
+    class:list={['btn', `btn--${variant}`]}
+  >
+    <span class="btn-grain"></span>
+    <span class="btn-text">{text}</span>
+  </button>
+)}
+
+<style>
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    background-color: var(--color-dark);
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+  }
+
+  .btn--enabled,
+  .btn--disabled {
+    width: 390px;
+  }
+
+  .btn--small {
+    width: 184px;
+  }
+
+  .btn--enabled {
+    box-shadow: var(--shadow-glitch);
+  }
+
+  .btn--small {
+    box-shadow: var(--shadow-glitch);
+  }
+
+  .btn--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url('/textures/grain-button.png');
+    background-size: var(--texture-size);
+    background-position: top left;
+    background-repeat: repeat;
+    opacity: 0.63;
+    mix-blend-mode: screen;
+    pointer-events: none;
+  }
+
+  .btn-text {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-ui);
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 0.64px;
+    color: white;
+    text-transform: lowercase;
+  }
+</style>
