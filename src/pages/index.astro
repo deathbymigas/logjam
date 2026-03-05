@@ -5,6 +5,10 @@ import ContactForm from '../components/ContactForm.astro';
 ---
 
 <Layout title="Logjam">
+  <form name="contact" method="post" data-netlify="true" hidden>
+    <input type="text" name="message" />
+    <input type="email" name="email" />
+  </form>
   <main class="page">
     <div class="page-grain"></div>
     <div class="column">
